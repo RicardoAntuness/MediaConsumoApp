@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import mediaImg from './../images/media.png'; 
 
 export default function ResultScreen({ route }) {
   const { media } = route.params;
@@ -11,11 +12,16 @@ export default function ResultScreen({ route }) {
     return 'E';
   };
 
+  const classificacao = classificarConsumo(media);
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Média de Consumo: {media.toFixed(2)} Km/L</Text>
-      <Text style={styles.text}>Classificação: {classificarConsumo(media)}</Text>
-      <Text style={styles.grandeText}>Não esqueça, grêmio NÃO tem mundial!</Text>
+      <Text style={[styles.text, styles.grandeText]}>
+        Classificação: {classificacao}
+      </Text>
+
+      <Image source={mediaImg} style={styles.imagem} resizeMode="contain" />
     </View>
   );
 }
@@ -26,6 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: '#fff',
   },
   text: {
     fontSize: 20,
@@ -33,8 +40,13 @@ const styles = StyleSheet.create({
   },
   grandeText: {
     fontSize: 24,
-    marginTop: 30,
-    color: 'red',
+    marginTop: 20,
     fontWeight: 'bold',
-  }
+    color: '#1E90FF',
+  },
+  imagem: {
+    width: 300,
+    height: 200,
+    marginTop: 30,
+  },
 });
